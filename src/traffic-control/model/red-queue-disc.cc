@@ -108,6 +108,11 @@ TypeId RedQueueDisc::GetTypeId (void)
                    BooleanValue (false),
                    MakeBooleanAccessor (&RedQueueDisc::m_isARED),
                    MakeBooleanChecker ())
+    .AddAttribute ("TRED",
+                   "True to enable TRED",
+                   BooleanValue (false),
+                   MakeBooleanAccessor (&RedQueueDisc::m_isTRED),
+                   MakeBooleanChecker ())
     .AddAttribute ("AdaptMaxP",
                    "True to adapt m_curMaxP",
                    BooleanValue (false),

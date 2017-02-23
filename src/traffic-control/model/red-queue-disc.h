@@ -295,6 +295,7 @@ private:
   double m_alpha;           //!< Increment parameter for m_curMaxP in ARED
   double m_beta;            //!< Decrement parameter for m_curMaxP in ARED
   Time m_rtt;               //!< Rtt to be considered while automatically setting m_bottom in ARED
+  bool m_isTRED;            //!< True to enable Three-section RED
   bool m_isNs1Compat;       //!< Ns-1 compatibility
   DataRate m_linkBandwidth; //!< Link bandwidth
   Time m_linkDelay;         //!< Link delay
