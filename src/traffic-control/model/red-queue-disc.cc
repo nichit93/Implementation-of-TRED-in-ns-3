@@ -664,6 +664,7 @@ RedQueueDisc::CalculatePNew (double qAvg, double maxTh, bool isGentle, double vA
 {
   NS_LOG_FUNCTION (this << qAvg << maxTh << isGentle << vA << vB << vC << vD << maxP);
   double p;
+  double delta = 1 / (vA * 3.0); // new variable for TRED
 
   if (isGentle && qAvg >= maxTh)
     {
@@ -687,6 +688,19 @@ RedQueueDisc::CalculatePNew (double qAvg, double maxTh, bool isGentle, double vA
        * th_min to th_max
        */
       p = vA * qAvg + vB;
+      if (m_isTRED)
+        {
+          if (qAvg < maxTh - 2.0 * delta) // minTh + delta = maxTh - 2 * delta
+            {
+              p *= p * p * 9.0;
+            }
+          else if (qAvg >= maxTh - delta) // minTh + 2 * delta = maxTh - delta
+            {
+              p -= vB - maxTh * vA; // setting p = (qAvg - maxTh)/ (maxTh - minTh)
+              p *= p * p * 9.0;
+              p += 1;
+            }
+        }
       p *= maxP;
     }
 
