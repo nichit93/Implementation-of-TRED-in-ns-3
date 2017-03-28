@@ -34,7 +34,13 @@ weight, MinTh and MaxTh and (ii) adapts maximum drop probability. The model
 in ns-3 contains implementation of both the features, and is a port of Sally
 Floyd's ns-2 ARED model. Note that the user is allowed to choose and explicitly
 configure the simulation by selecting feature (i) or feature (ii), or both.
- 
+
+Three-section Random Early Detection (TRED)
+===========================================
+TRED is based on nonlinear RED, in which the packet dropping probability 
+function is divided into three sections to distinguish between light, moderate, 
+and high loads to achieve a tradeoff in the delay and the throughput between 
+low and high traffic loads.
 
 References
 ==========
@@ -44,6 +50,9 @@ S.Floyd, K.Fall http://icir.org/floyd/papers/redsims.ps
 
 ARED queue implementation is based on the algorithm provided in:
 S. Floyd et al, http://www.icir.org/floyd/papers/adaptiveRed.pdf
+
+TRED queue implementation is based on the algorithm provided in:
+C. Feng et al,http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7018031
 
 Attributes
 ==========
@@ -78,6 +87,10 @@ In addition to RED attributes, ARED queue requires following attributes:
 
 Consult the ns-3 documentation for explanation of these attributes.
 
+The following attribute should be turned on to simulate TRED queue disc:
+
+* TRED (Boolean attribute. Default: false)
+
 Simulating ARED
 ===============
 
@@ -110,6 +123,16 @@ To configure (ii); AdaptMaxP must be set to true, as done in
 
   Config::SetDefault ("ns3::RedQueueDisc::AdaptMaxP", BooleanValue (true));
 
+Simulating TRED
+===============
+
+To switch on TRED algorithm, the attribute TRED must be set to true,
+as shown below:
+
+.. sourcecode:: cpp
+
+  Config::SetDefault ("ns3::RedQueueDisc::TRED", BooleanValue (true));
+
 Examples
 ========
 
@@ -118,6 +141,9 @@ The RED queue example is found at ``src/traffic-control/examples/red-tests.cc``.
 ARED queue examples can be found at:
 ``src/traffic-control/examples/adaptive-red-tests.cc`` and 
 ``src/traffic-control/examples/red-vs-ared.cc``
+
+TRED queue example can be found at:
+``src/traffic-control/examples/red-vs-tred.cc``
 
 Validation
 **********
