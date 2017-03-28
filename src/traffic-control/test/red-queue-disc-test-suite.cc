@@ -316,7 +316,7 @@ RedQueueDiscTestCase::RunRedTest (StringValue mode)
   NS_TEST_EXPECT_MSG_NE (drop.test8, 0, "There should some dropped packets due to probability mark");
 
 
-  // test 9: RED with Nonlinear drop probability
+  // test 9: RED with drop probability divided into three sections
   queue = CreateObject<RedQueueDisc> ();
   minTh = 10 * modeSize;
   maxTh = 30 * modeSize;
